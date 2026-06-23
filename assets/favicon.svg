@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <rect width="32" height="32" rx="6" fill="#0a0e14"/>
+  <!-- Snake body segments -->
+  <rect x="4"  y="13" width="8" height="6" rx="2" fill="#1aab00"/>
+  <rect x="13" y="13" width="6" height="6" rx="2" fill="#27cc00"/>
+  <!-- Snake head -->
+  <rect x="20" y="12" width="8" height="8" rx="2" fill="#39ff14"/>
+  <!-- Eye -->
+  <circle cx="26" cy="15" r="1.2" fill="#0a0e14"/>
+  <!-- Food -->
+  <circle cx="8" cy="24" r="3" fill="#ff2d55"/>
+</svg>

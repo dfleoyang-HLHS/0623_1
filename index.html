@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="貪吃蛇 Snake — 網頁版經典遊戲，支援鍵盤與手機觸控" />
+  <title>貪吃蛇 · SNAKE</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+</head>
+<body>
+
+  <!-- ── Header ───────────────────────────────────────── -->
+  <header>
+    <h1>貪吃蛇 <span>SNAKE</span></h1>
+    <p class="tagline">eat &nbsp;·&nbsp; grow &nbsp;·&nbsp; survive</p>
+  </header>
+
+  <!-- ── HUD ──────────────────────────────────────────── -->
+  <div class="hud" role="status" aria-live="polite">
+    <div class="hud-item">
+      <span class="hud-label">分數</span>
+      <span class="hud-value" id="score">0</span>
+    </div>
+    <div class="hud-item">
+      <span class="hud-label">最高分</span>
+      <span class="hud-value" id="best">0</span>
+    </div>
+    <div class="hud-item">
+      <span class="hud-label">長度</span>
+      <span class="hud-value" id="length">3</span>
+    </div>
+    <div class="hud-item">
+      <span class="hud-label">等級</span>
+      <span class="hud-value" id="level">1</span>
+    </div>
+  </div>
+
+  <!-- ── Canvas ───────────────────────────────────────── -->
+  <div class="canvas-wrap">
+    <canvas id="game" role="img" aria-label="貪吃蛇遊戲畫面"></canvas>
+
+    <!-- Start -->
+    <div class="overlay" id="startOverlay">
+      <h2 class="overlay-title">貪吃蛇</h2>
+      <p class="overlay-sub">使用方向鍵或 WASD 控制<br>吃掉食物讓蛇成長<br>撞到自己即遊戲結束</p>
+      <div class="speed-row" role="group" aria-label="選擇速度">
+        <button class="speed-btn" data-speed="slow">🐢 慢速</button>
+        <button class="speed-btn active" data-speed="normal">🐍 普通</button>
+        <button class="speed-btn" data-speed="fast">⚡ 快速</button>
+        <button class="speed-btn" data-speed="turbo">🚀 極速</button>
+      </div>
+      <button class="btn-primary" id="startBtn">開始遊戲</button>
+      <p class="hint">P 暫停 &nbsp;·&nbsp; ESC 結束</p>
+    </div>
+
+    <!-- Game Over -->
+    <div class="overlay hidden" id="gameoverOverlay">
+      <h2 class="overlay-title danger">遊戲結束</h2>
+      <div class="score-big" id="finalScore">0</div>
+      <p class="overlay-msg" id="goMessage">繼續加油！</p>
+      <button class="btn-primary" id="restartBtn">再玩一次</button>
+    </div>
+
+    <!-- Pause -->
+    <div class="overlay hidden" id="pauseOverlay">
+      <h2 class="overlay-title muted">⏸ 暫停中</h2>
+      <p class="overlay-sub">按 P 或點擊下方繼續</p>
+      <button class="btn-primary" id="resumeBtn">繼續遊戲</button>
+    </div>
+  </div>
+
+  <!-- ── D-pad (mobile) ───────────────────────────────── -->
+  <div class="dpad" id="dpad" aria-label="方向控制">
+    <div></div>
+    <button class="dpad-btn" id="dUp"    aria-label="上">▲</button>
+    <div></div>
+    <button class="dpad-btn" id="dLeft"  aria-label="左">◀</button>
+    <button class="dpad-btn dpad-pause"  id="dPause" aria-label="暫停">⏸</button>
+    <button class="dpad-btn" id="dRight" aria-label="右">▶</button>
+    <div></div>
+    <button class="dpad-btn" id="dDown"  aria-label="下">▼</button>
+    <div></div>
+  </div>
+
+  <!-- ── Legend ────────────────────────────────────────── -->
+  <div class="legend">
+    <span><i class="dot food"></i> 食物 +10×等級</span>
+    <span><i class="dot bonus"></i> 獎勵 +50×等級 (5秒限時)</span>
+    <span><i class="dot snake"></i> 蛇身</span>
+  </div>
+
+  <footer>
+    <a href="https://github.com/" target="_blank" rel="noopener">GitHub</a>
+    &nbsp;·&nbsp; 貪吃蛇 Snake &nbsp;·&nbsp; 方向鍵 / WASD 移動
+  </footer>
+
+  <script src="js/game.js"></script>
+</body>
+</html>

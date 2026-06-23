@@ -1,0 +1,282 @@
+/* ── Reset ────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── Design tokens ───────────────────────────────────────── */
+:root {
+  --bg:          #0a0e14;
+  --surface:     #0d1219;
+  --border:      #1e2d3d;
+  --dim:         #3d5166;
+
+  --green:       #39ff14;
+  --green-dark:  #1aab00;
+  --green-glow:  0 0 8px #39ff14, 0 0 22px #39ff1450;
+
+  --red:         #ff2d55;
+  --red-glow:    0 0 8px #ff2d55, 0 0 22px #ff2d5550;
+
+  --gold:        #ffd60a;
+  --gold-glow:   0 0 8px #ffd60a, 0 0 22px #ffd60a50;
+
+  --text:        #c8d6e5;
+  --text-muted:  #5a7a94;
+
+  --radius:      4px;
+  --font-mono:   'Share Tech Mono', 'Courier New', monospace;
+  --font-ui:     'Noto Sans TC', system-ui, sans-serif;
+}
+
+/* ── Google Fonts ─────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Noto+Sans+TC:wght@400;700&display=swap');
+
+/* ── Base ────────────────────────────────────────────────── */
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-mono);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  padding: 20px 16px 32px;
+  gap: 14px;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ── Header ──────────────────────────────────────────────── */
+header { text-align: center; letter-spacing: 0.25em; }
+
+header h1 {
+  font-size: clamp(1.5rem, 5vw, 2.4rem);
+  color: var(--text);
+  text-transform: uppercase;
+}
+header h1 span {
+  color: var(--green);
+  text-shadow: var(--green-glow);
+}
+.tagline {
+  font-size: 0.65rem;
+  color: var(--dim);
+  letter-spacing: 0.5em;
+  margin-top: 3px;
+}
+
+/* ── HUD ─────────────────────────────────────────────────── */
+.hud {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.hud-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 60px;
+}
+.hud-label {
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  color: var(--dim);
+  text-transform: uppercase;
+}
+.hud-value {
+  font-size: 1.4rem;
+  color: var(--text);
+  transition: color 0.15s, text-shadow 0.15s;
+  line-height: 1.2;
+}
+.hud-value.flash {
+  color: var(--green);
+  text-shadow: var(--green-glow);
+}
+
+/* ── Canvas wrapper ──────────────────────────────────────── */
+.canvas-wrap {
+  position: relative;
+  border: 1px solid var(--border);
+  box-shadow: 0 0 0 1px #39ff1415, inset 0 0 40px #000c;
+  flex-shrink: 0;
+}
+
+canvas {
+  display: block;
+  background: var(--surface);
+  image-rendering: pixelated;
+}
+
+/* ── Overlays ─────────────────────────────────────────────── */
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10,14,20,0.88);
+  gap: 16px;
+  padding: 28px 20px;
+  text-align: center;
+  backdrop-filter: blur(2px);
+}
+.overlay.hidden { display: none; }
+
+.overlay-title {
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--green);
+  text-shadow: var(--green-glow);
+}
+.overlay-title.danger {
+  color: var(--red);
+  text-shadow: var(--red-glow);
+}
+.overlay-title.muted {
+  color: var(--text);
+  text-shadow: none;
+}
+.overlay-sub {
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  line-height: 1.9;
+  letter-spacing: 0.05em;
+}
+.overlay-msg {
+  color: var(--text-muted);
+  font-size: 0.82rem;
+}
+.score-big {
+  font-size: 3rem;
+  color: var(--green);
+  text-shadow: var(--green-glow);
+  letter-spacing: 0.1em;
+}
+.hint {
+  font-size: 0.62rem;
+  color: var(--dim);
+  letter-spacing: 0.2em;
+}
+
+/* ── Buttons ──────────────────────────────────────────────── */
+.btn-primary {
+  background: transparent;
+  border: 1px solid var(--green);
+  color: var(--green);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 10px 32px;
+  cursor: pointer;
+  border-radius: var(--radius);
+  transition: background 0.15s, box-shadow 0.15s;
+}
+.btn-primary:hover, .btn-primary:focus-visible {
+  background: rgba(57,255,20,0.1);
+  box-shadow: var(--green-glow);
+  outline: none;
+}
+
+/* ── Speed selector ───────────────────────────────────────── */
+.speed-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.speed-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--dim);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  padding: 6px 14px;
+  cursor: pointer;
+  border-radius: var(--radius);
+  transition: all 0.15s;
+}
+.speed-btn:hover, .speed-btn.active {
+  border-color: var(--green);
+  color: var(--green);
+  box-shadow: 0 0 6px #39ff1440;
+}
+
+/* ── D-pad ────────────────────────────────────────────────── */
+.dpad {
+  display: none;
+  grid-template-columns: repeat(3, 52px);
+  grid-template-rows: repeat(3, 52px);
+  gap: 5px;
+}
+.dpad-btn {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: var(--radius);
+  transition: background 0.1s, border-color 0.1s;
+  touch-action: manipulation;
+}
+.dpad-btn:active {
+  background: #1e2d3d;
+  border-color: var(--green);
+}
+.dpad-pause {
+  font-size: 0.85rem;
+  color: var(--dim);
+}
+
+/* Show d-pad on touch devices or narrow screens */
+@media (pointer: coarse), (max-width: 520px) {
+  .dpad { display: grid; }
+}
+
+/* ── Legend ───────────────────────────────────────────────── */
+.legend {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  justify-content: center;
+  font-size: 0.68rem;
+  color: var(--dim);
+  letter-spacing: 0.08em;
+}
+.legend span { display: flex; align-items: center; gap: 6px; }
+.dot {
+  display: inline-block;
+  width: 10px; height: 10px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.dot.food   { background: var(--red);   box-shadow: var(--red-glow); }
+.dot.bonus  { background: var(--gold);  box-shadow: var(--gold-glow); }
+.dot.snake  { background: var(--green); box-shadow: var(--green-glow); }
+
+/* ── Footer ───────────────────────────────────────────────── */
+footer {
+  font-size: 0.62rem;
+  color: var(--dim);
+  letter-spacing: 0.18em;
+  text-align: center;
+  opacity: 0.6;
+}
+footer a {
+  color: inherit;
+  text-decoration: none;
+}
+footer a:hover { color: var(--green); }
+
+/* ── Reduced motion ───────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .hud-value { transition: none; }
+  .btn-primary, .speed-btn, .dpad-btn { transition: none; }
+}
